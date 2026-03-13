@@ -4,7 +4,7 @@ from playwright.sync_api import sync_playwright
 import re
 import time
 
-# --- CONFIGURATION ---
+# SET UP:
 START_INDEX = 143  # We change this step by step not to get blocked
 BATCH_SIZE = 10
 END_INDEX = START_INDEX + BATCH_SIZE
@@ -60,14 +60,13 @@ def scrape_stats_page(df_subset):
         browser.close()
     return pd.DataFrame(all_results)
 
-# --- RUN BATCH ---
+# Run step by step:
 print(f"Running batch: {START_INDEX} to {END_INDEX}...")
 new_results_df = scrape_stats_page(df_batch)
 
-# 2. Update the main Results file
+# 2. Updating the main Results file
 if os.path.exists(RESULTS_FILE):
     existing_df = pd.read_csv(RESULTS_FILE)
-    # concat aligns columns automatically and fills missing ones with NaN
     updated_df = pd.concat([existing_df, new_results_df], ignore_index=True)
 else:
     updated_df = new_results_df

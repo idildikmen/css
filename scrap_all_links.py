@@ -6,7 +6,7 @@ import random
 df = pd.read_csv('eu_policies_high_engagement.csv')
 
 def get_detailed_links(df_subset):
-    # We will work on a copy to avoid SettingWithCopy warnings
+    # We will work on a copy 
     df_work = df_subset.copy()
     
     with sync_playwright() as p:
@@ -21,17 +21,17 @@ def get_detailed_links(df_subset):
             print(f"[{index+1}/{len(df_work)}] Navigating to: {url}")
             
             try:
-                # 1. Navigate
+                # Navigate to the page
                 page.goto(url, wait_until="networkidle", timeout=60000)
                 
-                # 2. Locate the link
+                # Locate the link
                 # Using .first in case there are multiple matches
                 feedback_link = page.locator("a:has-text('View feedback received')").first
                 
-                # 3. Wait for it to exist
+                # Wait for the page and item to exist
                 feedback_link.wait_for(state="attached", timeout=10000)
                 
-                # 4. Extract href
+                # Extract href
                 href = feedback_link.get_attribute("href")
                 
                 if href:
@@ -52,19 +52,17 @@ def get_detailed_links(df_subset):
     
     return df_work
 
-# --- EXECUTION ---
-
-# --- EXECUTION FOR THE NEXT BATCH ---
+# Execute the code:
 
 #%%
 
-# 1. Select the next 15 rows (index 15 up to 30)
-df_next_batch = df[130:] #Change this to start from where you left.
+# Select the next 15 rows (index 15 up to 30)
+df_next_batch = df[130:] #We change this to start from where we left.
 
-# 2. Run the function for this specific batch
+# Run the function for this specific batch
 df_processed_batch = get_detailed_links(df_next_batch)
 
-# 3. Append to the existing CSV
+# Append to the existing CSV
 # mode='a' is append
 # header=False prevents writing the column names again
 
