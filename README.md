@@ -7,13 +7,14 @@ The project utilizes Natural Language Processing (BERT embeddings and K-Means cl
 
 ## Repository Structure
 * `data/`: Contains the raw and cleaned datasets.
-  * `base_consultations.csv`: Initial consultation links (Credit: Marcus Novotny).
-  * `updated_feedback_data_final.csv`: Full dataset with feedback counts and stakeholder percentages scraped by the author.
+  * `eu_policies_high_engagement.csv`: Initial consultation links (Credit: Marcus Novotny).
+  * `updated_feedback_data_final.csv`: Full dataset with feedback counts and stakeholder percentages scraped by us.
 * `scripts/`: Python scripts used for data collection and analysis.
-  * `scrap_all_links.py`: Web scraping script to collect feedback statistics.
+  * `scrap_all_links.py`: Web scraping script to get feedback links.
+  * `scrap_all_actors.py`: Web scraping script to collect feedback statistics.
   * `CSS_final_analysis_HaveYourSay_IlaydaDikmen.ipynb`: Jupyter notebook containing the BERT embedding and K-Means clustering of policy titles.
   * Statistical analysis, including the Poisson count models, Wald tests, and data visualization.
-* `figures/`: Output graphs and tables used in the paper (e.g., topic distribution, stakeholder shares).
+#* `figures/`: Output graphs and tables used in the paper (e.g., topic distribution, stakeholder shares).
 
 ## Prerequisites
 To run the code, you will need Python 3.8+ and the following libraries installed:
